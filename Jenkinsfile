@@ -1,7 +1,6 @@
 pipeline {
     agent any
 
-    withCredentials([sshUserPrivateKey(credentialsId: "jenkins-ssh", keyFileVariable: 'sshkey')]){
       stages {
           stage('build') {
               steps {
@@ -17,7 +16,9 @@ pipeline {
           }
 
           stage('deploy') {
+            withCredentials([sshUserPrivateKey(credentialsId: "jenkins-ssh", keyFileVariable: 'sshkey')]){
               steps {
+
                   echo 'deploying the software'
                   sh '''#!/bin/bash
                   echo "Creating .ssh"

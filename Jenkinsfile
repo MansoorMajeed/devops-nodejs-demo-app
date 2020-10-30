@@ -25,11 +25,11 @@ pipeline {
                   ssh-keyscan 192.168.33.11 >> /var/lib/jenkins/.ssh/known_hosts
                   ssh-keyscan 192.168.33.12 >> /var/lib/jenkins/.ssh/known_hosts
 
-                  rsync -avz -e "ssh -i $sshkey" ./ vagrant@192.168.33.11:/app/
-                  rsync -avz -e "ssh -i $sshkey" ./ vagrant@192.168.33.12:/app/
+                  rsync -avz --exclude  '.git' --delete -e "ssh -i $sshkey" ./ vagrant@192.168.33.11:/app/
+                  rsync -avz --exclude  '.git' --delete -e "ssh -i $sshkey" ./ vagrant@192.168.33.12:/app/
 
-                  ssh vagrant@192.168.33.11 "sudo pkill node; cd /app; node index.js > output.log 2>&1 &"
-                  ssh vagrant@192.168.33.12 "sudo pkill node; cd /app; node index.js > output.log 2>&1 &"
+                  ssh -i $sshkey vagrant@192.168.33.11 "sudo pkill node; cd /app; node index.js > output.log 2>&1 &"
+                  ssh -i $sshkey vagrant@192.168.33.12 "sudo pkill node; cd /app; node index.js > output.log 2>&1 &"
 
                   '''
               }

@@ -5,12 +5,13 @@ pipeline {
         stage('build') {
             steps {
                 echo 'building the software'
-                sh 'whoami'
+                sh 'npm install'
             }
         }
         stage('test') {
             steps {
                 echo 'testing the software'
+                sh 'npm test'
             }
         }
         stage('deploy') {

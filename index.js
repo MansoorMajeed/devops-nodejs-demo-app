@@ -7,7 +7,7 @@ var hostname = os.hostname();
 
 var pid = process.pid;
 
-const appVersion = "3.0";
+const appVersion = "4.0";
 
 app.get('/', (req, res) => {
 
